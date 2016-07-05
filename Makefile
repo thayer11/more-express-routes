@@ -9,3 +9,7 @@ color_picker:
 restaurant:
 	bundle 
 	cucumber features/restaurant.feature 
+
+number_picker:
+	bundle
+	cucumber features/number_picker.feature
