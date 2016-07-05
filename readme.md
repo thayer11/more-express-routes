@@ -220,51 +220,6 @@ You can create your own middleware, or use third-party modules. That's right, th
 
 The [`body-parser`](https://github.com/expressjs/body-parser) module is an example of some middleware that makes Express awesome. You can use it to parse out params from the POST'd form. This provides a different way to collect data instead of relying on URL or query params.
 
-`server.js`
-```javascript
-var express = require('express');
-var app = express();
-
-var ejs = require('ejs');
-var bodyParser = require('body-parser');
-// bodyParser.urlencoded() returns a function that will be called later in the app.post() route
-var parseUrlencoded = bodyParser.urlencoded({extended: false});
-
-// store for cities in memory (as long as server is running)
-var cities = [];
-
-app.get('/cities', function(req, res) {
-    res.render('cities', {cities: cities});
-})
-
-// passing multiple middleware functions to this route; they are executed sequentially.
-app.post('/cities', parseUrlencoded, function (request, response) {
-  var city;
-  var name = request.body.name;
-  var description = request.body.description;
-  city = { name: name, description: description}
-  cities.push(city);
-    // passing local variables to be used in EJS template
-  response.render('cities', { cities: cities});
-});
-```
-
-`cities.ejs`
-```html
-<h1>Cities</h1>
-<ul>
-<% for(var i = 0; i< cities.length; i++) {%>
-   <li><%= cities[i].name %> <%= cities[i].description %></li>
-<% } %>
-</ul>
-
-<form action="/cities" method="POST">
-  <input type="text" name="name">
-  <input type="text" name="description">
-  <input type="submit" value="submit">
-</form>
-```
-
 ## Summary
 
 We learned about
