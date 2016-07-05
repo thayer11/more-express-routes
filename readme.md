@@ -1,5 +1,4 @@
 # More Express:
-## Routes, Params, and Queries
 
 | Objectives |
 | :---- |
@@ -25,21 +24,7 @@
 * Intro
 * Routing
     * HTTP GET  
-    * Request Params
-* Query Params
-    * Middleware
 * Exercises
-
-## What Can We Do with Express (Review)?
-
-**Core Concepts and Brainstorming**
-
-* Server-side JS
-    * Instead of DOM manipulation, we are interacting with the request / response cycle
-* (B.Y.O.A.) Build your own API
-    * What kind of data do you want to work with?
-
-
 
 ### Setup
 
@@ -58,7 +43,6 @@ Let's start with a simple **Express** application.
     ``` bash
     echo {} > package.json      #puts an empty object into a new `package.json`
     npm install --save express
-    npm install --save ejs # if you want to use the templating
     subl .
     ```
 The folder structure will be as follows:
@@ -117,8 +101,8 @@ Let's build these into our application:
 `index.js`
 
 ``` javascript
-var express = require('express'),
-    app = express();
+var express = require('express')
+var app = express();
 
 var burgers = [
                 "Hamburger",
@@ -159,19 +143,6 @@ What if we want to create an app that can dynamically say hello to anyone?
 * Using **url parameters** add a dynamic route to the application, indicated by `:` and the variable name you want to use, we'll use `:name` for the example below.
 
 ``` javascript
-// another example of some simple middleware
-// call this function on every route with the param of 'name'
-app.param('name', function(request, response, next) {
-    // get name from params
-  var name = request.params.name;
-    // capitalize the name
-  var capitalizedName = name[0].toUpperCase() + name.slice(1).toLowerCase();
-    // set the value of the name to the capitalized version
-  request.params.name = capitalizedName;
-    // pass control to the next middleware function
-  next();
-})
-
 app.get("/greet/:name", function (req, res) {
     res.send( "Hello, " + req.params.name );
 });
